@@ -1,0 +1,24 @@
+Source: libqb
+Priority: extra
+Maintainer: Proxmox Support Team <support@proxmox.com>
+Build-Depends: debhelper (>= 7.0.50~), autotools-dev, doxygen, check
+Standards-Version: 3.8.4
+Section: libs
+Homepage: http://www.libqb.org
+
+Package: libqb-dev
+Section: libdevel
+Architecture: any
+Depends: pkg-config, libqb (= ${binary:Version})
+Description: The Quarterback Client Server Developer Library
+ This package contains include files and man pages used to develop using
+ The Quarterback APIs.
+ .
+
+Package: libqb
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: The Quarterback Client Server Library
+ This package contains libqb libraries.
+ .
