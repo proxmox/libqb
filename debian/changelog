@@ -1,3 +1,11 @@
+libqb (0.6.0-1) unstable; urgency=low
+
+  * update to 0.6.0
+  
+  * changed source location to git://github.com/asalkeld/libqb.git
+
+ -- Proxmox Support Team <support@proxmox.com>  Sat, 22 Oct 2011 06:17:00 +0200
+
 libqb (0.5.1-1) unstable; urgency=low
 
   *  update to 0.5.1
