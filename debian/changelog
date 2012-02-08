@@ -1,3 +1,9 @@
+libqb (0.10.0-1) unstable; urgency=low
+
+  * update to 0.10.0
+
+ -- Proxmox Support Team <support@proxmox.com>  Wed, 08 Feb 2012 06:55:00 +0100
+
 libqb (0.6.0-1) unstable; urgency=low
 
   * update to 0.6.0
