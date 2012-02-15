@@ -1,7 +1,7 @@
 RELEASE=2.0
 
 QBVERSION=0.10.1
-QBRELEASE=1
+QBRELEASE=2
 QBDIR=libqb-${QBVERSION}
 QBSRC=libqb-${QBVERSION}.orig.tar.gz
 
@@ -17,7 +17,6 @@ all: ${DEBS}
 ${DEBS}: ${QBSRC}
 	rm -rf ${QBDIR}
 	tar xf ${QBSRC} 
-	cd ${QBDIR}; patch -p1 <../qb_log_filter_fn_set-test.diff
 	cp -a debian ${QBDIR}/debian
 	cd ${QBDIR}; dpkg-buildpackage -rfakeroot -b -us -uc
 
