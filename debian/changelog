@@ -1,6 +1,8 @@
 libqb (0.10.1-1) unstable; urgency=low
 
   * update to 0.10.1
+  
+  * include qb_log_filter_fn_set patch
 
  -- Proxmox Support Team <support@proxmox.com>  Tue, 14 Feb 2012 13:22:53 +0100
 

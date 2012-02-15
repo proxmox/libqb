@@ -1,0 +1,245 @@
+From quarterback-devel-bounces@lists.fedorahosted.org Tue Feb 14 13:06:03 2012
+Received: from rt.proxmox.com (192.168.2.18) by lisa.maurer-it.com
+ (192.168.2.121) with Microsoft SMTP Server id 14.1.355.2; Tue, 14 Feb 2012
+ 13:06:03 +0100
+Received: from proxmox.maurer-it.com (proxmox.maurer-it.com
+ [192.168.2.110]) by rt.proxmox.com (Postfix) with ESMTP id C33CC206E9C3	for
+ <dietmar@proxmox.com>; Tue, 14 Feb 2012 13:06:03 +0100 (CET)
+Received: from proxmox.maurer-it.com (localhost.localdomain [127.0.0.1])	by
+ proxmox.maurer-it.com (Proxmox) with ESMTP id 59DE2272648D	for
+ <dietmar@proxmox.com>; Tue, 14 Feb 2012 13:06:03 +0100 (CET)
+Received-SPF: none (lists.fedorahosted.org: No applicable sender policy
+ available) receiver=proxmox.maurer-it.com; identity=mfrom;
+ envelope-from="quarterback-devel-bounces@lists.fedorahosted.org";
+ helo=bastion.fedoraproject.org; client-ip=209.132.181.2
+Received: from bastion.fedoraproject.org (bastion01.fedoraproject.org
+ [209.132.181.2])	by proxmox.maurer-it.com (Proxmox) with ESMTP id
+ 16DFF2726489	for <dietmar@proxmox.com>; Tue, 14 Feb 2012 13:06:00 +0100
+ (CET)
+Received: from lists.fedorahosted.org (hosted03.vpn.fedoraproject.org
+ [192.168.1.16])	by bastion01.phx2.fedoraproject.org (Postfix) with ESMTP id
+ D86DA20DD0;	Tue, 14 Feb 2012 12:05:57 +0000 (UTC)
+Received: by lists.fedorahosted.org (Postfix, from userid 503)	id
+ 662ED142E; Tue, 14 Feb 2012 12:05:57 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
+ hosted03.fedoraproject.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_HI
+ autolearn=unavailable version=3.3.1
+Received: from hosted03.fedoraproject.org (localhost [127.0.0.1])	by
+ lists.fedorahosted.org (Postfix) with ESMTP id 74DEE13DF;	Tue, 14 Feb 2012
+ 12:05:55 +0000 (UTC)
+X-Original-To: quarterback-devel@lists.fedorahosted.org
+Delivered-To: quarterback-devel@lists.fedorahosted.org
+Received: by lists.fedorahosted.org (Postfix, from userid 503)	id
+ C0EE3141B; Tue, 14 Feb 2012 12:05:52 +0000 (UTC)
+Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])	by
+ lists.fedorahosted.org (Postfix) with ESMTP id 1F03512A7	for
+ <quarterback-devel@lists.fedorahosted.org>;	Tue, 14 Feb 2012 12:05:45 +0000
+ (UTC)
+Received: from int-mx01.intmail.prod.int.phx2.redhat.com
+ (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])	by mx1.redhat.com
+ (8.14.4/8.14.4) with ESMTP id q1EC5jAD005561	(version=TLSv1/SSLv3
+ cipher=DHE-RSA-AES256-SHA bits=256 verify=OK)	for
+ <quarterback-devel@lists.fedorahosted.org>;	Tue, 14 Feb 2012 07:05:45 -0500
+Received: from mypad.redhat.com (ovpn-116-19.sin2.redhat.com
+ [10.67.116.19]) by int-mx01.intmail.prod.int.phx2.redhat.com
+ (8.13.8/8.13.8) with ESMTP	id q1EC5fvU000734; Tue, 14 Feb 2012 07:05:43
+ -0500
+From: Angus Salkeld <asalkeld@redhat.com>
+To: libqb mailing lst <quarterback-devel@lists.fedorahosted.org>
+Date: Tue, 14 Feb 2012 23:05:32 +1100
+Message-ID: <1329221132-2116-1-git-send-email-asalkeld@redhat.com>
+In-Reply-To: <24E144B8C0207547AD09C467A8259F7544B1B135@lisa.maurer-it.com>
+References: <24E144B8C0207547AD09C467A8259F7544B1B135@lisa.maurer-it.com>
+X-Scanned-By: MIMEDefang 2.67 on 10.5.11.11
+Subject: [libqb] [PATCH] LOG: quick demo of possible qb_log_filter_fn_set()
+X-BeenThere: quarterback-devel@lists.fedorahosted.org
+X-Mailman-Version: 2.1.12
+Precedence: list
+Reply-To: lib quarterback <quarterback-devel@lists.fedorahosted.org>
+List-Id: lib quarterback <quarterback-devel.lists.fedorahosted.org>
+List-Unsubscribe:
+ <https://fedorahosted.org/mailman/options/quarterback-devel>, 
+ <mailto:quarterback-devel-request@lists.fedorahosted.org?subject=unsubscribe>
+List-Archive: <https://fedorahosted.org/pipermail/quarterback-devel/>
+List-Post: <mailto:quarterback-devel@lists.fedorahosted.org>
+List-Help:
+ <mailto:quarterback-devel-request@lists.fedorahosted.org?subject=help>
+List-Subscribe:
+ <https://fedorahosted.org/mailman/listinfo/quarterback-devel>, 
+ <mailto:quarterback-devel-request@lists.fedorahosted.org?subject=subscribe>
+Content-Type: text/plain; charset="utf-8"
+Sender: <quarterback-devel-bounces@lists.fedorahosted.org>
+Errors-To: quarterback-devel-bounces@lists.fedorahosted.org
+x-proxmoxspam-level: Spam detection results:  0 AWL                    
+ 0.290 From: address is in the auto white-list BAYES_00                 -1.9
+ Bayes spam probability is 0 to 1% RCVD_IN_DNSWL_MED        -2.3 Sender
+ listed at http://www.dnswl.org/, medium trust
+Return-Path: quarterback-devel-bounces@lists.fedorahosted.org
+X-MS-Exchange-Organization-AuthSource: lisa.maurer-it.com
+X-MS-Exchange-Organization-AuthAs: Anonymous
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Angus Salkeld <asalkeld@redhat.com>
+---
+ examples/simplelog.c |   25 ++++++++++++++++++-------
+ include/qb/qblog.h   |    8 ++++++++
+ lib/log.c            |   26 ++++++++++++++++++++++++++
+ 3 files changed, 52 insertions(+), 7 deletions(-)
+
+diff --git a/examples/simplelog.c b/examples/simplelog.c
+index 593dd5c..c0607c2 100644
+--- a/examples/simplelog.c
++++ b/examples/simplelog.c
+@@ -29,6 +29,8 @@
+ #define MY_TAG_TWO   (1 << 1)
+ #define MY_TAG_THREE (1 << 2)
+ 
++static int32_t _log_priority = LOG_WARNING;
++
+ static void func_one(void)
+ {
+ 	FILE* fd;
+@@ -115,12 +117,23 @@ trace_logger(int32_t t,
+ 	fprintf(stderr, "%s\n", output_buffer);
+ }
+ 
++static void
++m_filter(struct qb_log_callsite *cs)
++{
++	if ((cs->priority >= LOG_ALERT &&
++	     cs->priority <= _log_priority) &&
++	     strcmp(cs->filename, __FILE__) == 0) {
++		qb_bit_set(cs->targets, QB_LOG_STDERR);
++	} else {
++		qb_bit_clear(cs->targets, QB_LOG_STDERR);
++	}
++}
++
+ int32_t main(int32_t argc, char *argv[])
+ {
+ 	const char *options = "vhtebdf:";
+ 	int32_t opt;
+ 	int32_t tracer;
+-	int32_t priority = LOG_WARNING;
+ 	int32_t do_stderr = QB_FALSE;
+ 	int32_t do_dump_blackbox = QB_FALSE;
+ 	char *logfile = NULL;
+@@ -144,7 +157,7 @@ int32_t main(int32_t argc, char *argv[])
+ 			logfile = optarg;
+ 			break;
+ 		case 'v':
+-			priority++;
++			_log_priority++;
+ 			break;
+ 		case 'h':
+ 		default:
+@@ -168,10 +181,8 @@ int32_t main(int32_t argc, char *argv[])
+ 	tracer = qb_log_custom_open(trace_logger, NULL, NULL, NULL);
+ 
+ 	if (do_stderr) {
+-		qb_log_filter_ctl2(QB_LOG_STDERR, QB_LOG_FILTER_ADD,
+-				   QB_LOG_FILTER_FILE, __FILE__,
+-				   LOG_ALERT, QB_MIN(LOG_DEBUG, priority));
+-		qb_log_format_set(QB_LOG_STDERR, "%4g: %f:%l [%p] %b");
++		qb_log_filter_fn_set(m_filter);
++		qb_log_format_set(QB_LOG_STDERR, "[%p] %4g: %f:%l %b");
+ 		qb_log_ctl(QB_LOG_STDERR, QB_LOG_CONF_ENABLED, QB_TRUE);
+ 
+ 		qb_log_ctl(tracer, QB_LOG_CONF_ENABLED, QB_TRUE);
+@@ -190,7 +201,7 @@ int32_t main(int32_t argc, char *argv[])
+ 	if (logfile) {
+ 		log_fd = qb_log_file_open(logfile);
+ 		qb_log_filter_ctl(log_fd, QB_LOG_FILTER_ADD,
+-				  QB_LOG_FILTER_FILE, __FILE__, priority);
++				  QB_LOG_FILTER_FILE, __FILE__, _log_priority);
+ 		qb_log_format_set(log_fd, "[%N] %t %n() [%p] %b");
+ 		qb_log_ctl(log_fd, QB_LOG_CONF_THREADED, do_threaded);
+ 		qb_log_ctl(log_fd, QB_LOG_CONF_ENABLED, QB_TRUE);
+diff --git a/include/qb/qblog.h b/include/qb/qblog.h
+index f1a6305..2d57966 100644
+--- a/include/qb/qblog.h
++++ b/include/qb/qblog.h
+@@ -237,6 +237,8 @@ struct qb_log_callsite {
+ 	uint32_t tags;
+ } __attribute__((aligned(8)));
+ 
++typedef void (*qb_log_filter_fn)(struct qb_log_callsite * cs);
++
+ /* will be assigned by ld linker magic */
+ #ifdef QB_HAVE_ATTRIBUTE_SECTION
+ extern struct qb_log_callsite __start___verbose[];
+@@ -462,6 +464,12 @@ int32_t qb_log_filter_ctl2(int32_t value, enum qb_log_filter_conf c,
+ 			  enum qb_log_filter_type type, const char * text,
+ 			  uint8_t high_priority, uint8_t low_priority);
+ 
++
++/**
++ *
++ */
++int32_t qb_log_filter_fn_set(qb_log_filter_fn fn);
++
+ /**
+  * Set the callback to map the 'tags' bit map to a string.
+  */
+diff --git a/lib/log.c b/lib/log.c
+index 867334f..9b9ea9d 100644
+--- a/lib/log.c
++++ b/lib/log.c
+@@ -43,6 +43,7 @@ static uint32_t conf_active_max = 0;
+ static int32_t in_logger = QB_FALSE;
+ static int32_t logger_inited = QB_FALSE;
+ static pthread_rwlock_t _listlock;
++static qb_log_filter_fn _custom_filter_fn = NULL;
+ 
+ static QB_LIST_DECLARE(tags_head);
+ static QB_LIST_DECLARE(callsite_sections);
+@@ -281,6 +282,9 @@ qb_log_from_external_source_va(const char *function,
+ 		} else {
+ 			cs->tags = tags;
+ 		}
++		if (_custom_filter_fn) {
++			_custom_filter_fn(cs);
++		}
+ 		pthread_rwlock_unlock(&_listlock);
+ 	}
+ 	qb_log_real_va_(cs, ap);
+@@ -588,6 +592,28 @@ qb_log_filter_ctl2(int32_t t, enum qb_log_filter_conf c,
+ }
+ 
+ int32_t
++qb_log_filter_fn_set(qb_log_filter_fn fn)
++{
++	struct callsite_section *sect;
++	struct qb_log_callsite *cs;
++
++	if (!logger_inited) {
++		return -EINVAL;
++	}
++	_custom_filter_fn = fn;
++
++	qb_list_for_each_entry(sect, &callsite_sections, list) {
++		for (cs = sect->start; cs < sect->stop; cs++) {
++			if (cs->lineno == 0) {
++				break;
++			}
++			_custom_filter_fn(cs);
++		}
++	}
++	return 0;
++}
++
++int32_t
+ qb_log_filter_ctl(int32_t t, enum qb_log_filter_conf c,
+ 		  enum qb_log_filter_type type,
+ 		  const char *text, uint8_t priority)
+-- 
+1.7.7.6
+
+_______________________________________________
+quarterback-devel mailing list
+quarterback-devel@lists.fedorahosted.org
+https://fedorahosted.org/mailman/listinfo/quarterback-devel
+

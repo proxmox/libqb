@@ -17,6 +17,7 @@ all: ${DEBS}
 ${DEBS}: ${QBSRC}
 	rm -rf ${QBDIR}
 	tar xf ${QBSRC} 
+	cd ${QBDIR}; patch -p1 <../qb_log_filter_fn_set-test.diff
 	cp -a debian ${QBDIR}/debian
 	cd ${QBDIR}; dpkg-buildpackage -rfakeroot -b -us -uc
 
