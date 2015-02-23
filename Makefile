@@ -1,14 +1,14 @@
-RELEASE=2.0
+RELEASE=4.0
 
-QBVERSION=0.10.1
-QBRELEASE=2
+QBVERSION=0.17.1
+QBRELEASE=1
 QBDIR=libqb-${QBVERSION}
 QBSRC=libqb-${QBVERSION}.orig.tar.gz
 
 ARCH:=$(shell dpkg-architecture -qDEB_BUILD_ARCH)
 
 DEBS=									\
-	libqb_${QBVERSION}-${QBRELEASE}_${ARCH}.deb			\
+	libqb0_${QBVERSION}-${QBRELEASE}_${ARCH}.deb			\
 	libqb-dev_${QBVERSION}-${QBRELEASE}_${ARCH}.deb
 
 all: ${DEBS}

@@ -9,6 +9,9 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
+# enable hardening
+export DEB_BUILD_HARDENING=1
+
 # we want to load libqb with dynamic loader with perl
 export CFLAGS=-fPIC
 

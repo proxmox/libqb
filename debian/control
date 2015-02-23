@@ -9,13 +9,13 @@ Homepage: http://www.libqb.org
 Package: libqb-dev
 Section: libdevel
 Architecture: any
-Depends: pkg-config, libqb (= ${binary:Version})
+Depends: pkg-config, libqb0 (= ${binary:Version})
 Description: The Quarterback Client Server Developer Library
  This package contains include files and man pages used to develop using
  The Quarterback APIs.
  .
 
-Package: libqb
+Package: libqb0
 Section: libs
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
