@@ -4,7 +4,7 @@ libqb (0.17.1-1) unstable; urgency=medium
 
   * recompile for Debian Jessie
   
- -- root <root@elsa.maurer-it.com>  Mon, 23 Feb 2015 07:08:25 +0100
+ -- Proxmox Support Team <support@proxmox.com>  Mon, 23 Feb 2015 07:08:25 +0100
 
 libqb (0.10.1-2) unstable; urgency=low
 
