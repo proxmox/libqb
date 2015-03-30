@@ -1,3 +1,9 @@
+libqb (0.17.1-2) unstable; urgency=medium
+
+  * update to latest upstream
+
+ -- Proxmox Support Team <support@proxmox.com>  Mon, 30 Mar 2015 18:51:53 +0200
+
 libqb (0.17.1-1) unstable; urgency=medium
 
   * update to latest upstream
