@@ -9,6 +9,7 @@ ARCH:=$(shell dpkg-architecture -qDEB_BUILD_ARCH)
 
 DEBS=									\
 	libqb0_${QBVERSION}-${QBRELEASE}_${ARCH}.deb			\
+	libqb0-dbg_${QBVERSION}-${QBRELEASE}_${ARCH}.deb		\
 	libqb-dev_${QBVERSION}-${QBRELEASE}_${ARCH}.deb
 
 all: ${DEBS}
