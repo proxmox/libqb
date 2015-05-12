@@ -13,12 +13,17 @@ Depends: pkg-config, libqb0 (= ${binary:Version})
 Description: The Quarterback Client Server Developer Library
  This package contains include files and man pages used to develop using
  The Quarterback APIs.
- .
-
+ 
 Package: libqb0
 Section: libs
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: The Quarterback Client Server Library
  This package contains libqb libraries.
- .
+
+Package: libqb0-dbg
+Section: debug
+Architecture: any
+Depends: libqb0 (= ${binary:Version})
+Description: Debug symbols for libqb
+ This package contains the debug symbols for libqb 
