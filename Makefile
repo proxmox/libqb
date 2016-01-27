@@ -1,6 +1,6 @@
 RELEASE=4.0
 
-QBVERSION=0.17.2
+QBVERSION=1.0
 QBRELEASE=1
 QBDIR=libqb-${QBVERSION}
 QBSRC=libqb-${QBVERSION}.orig.tar.gz
@@ -24,8 +24,8 @@ ${DEBS}: ${QBSRC}
 
 download:
 	rm -rf libqb-${QBVERSION} libqb-${QBVERSION}.orig.tar.gz
-	git clone git://github.com/asalkeld/libqb.git libqb-${QBVERSION}
-	# fixme checkout correct version
+	git clone git://github.com/ClusterLabs/libqb.git libqb-${QBVERSION}
+	cd libqb-${QBVERSION}; git checkout v1.0rc1
 	cd libqb-${QBVERSION}; ./autogen.sh
 	tar czf libqb-${QBVERSION}.orig.tar.gz libqb-${QBVERSION}/
 
