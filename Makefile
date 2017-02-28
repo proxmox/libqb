@@ -19,7 +19,7 @@ ${DEBS}: ${QBSRC}
 	rm -rf ${QBDIR}
 	tar xf ${QBSRC} 
 	cp -a debian ${QBDIR}/debian
-	cd ${QBDIR}; dpkg-buildpackage -rfakeroot -b -us -uc
+	cd ${QBDIR}; dpkg-buildpackage -b -us -uc
 
 
 download:
