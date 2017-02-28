@@ -26,7 +26,6 @@ download:
 	rm -rf libqb-${QBVERSION} libqb-${QBVERSION}.orig.tar.gz
 	git clone git://github.com/ClusterLabs/libqb.git libqb-${QBVERSION}
 	cd libqb-${QBVERSION}; git checkout v${QBVERSION}
-	cd libqb-${QBVERSION}; ./autogen.sh
 	tar czf libqb-${QBVERSION}.orig.tar.gz libqb-${QBVERSION}/
 
 .PHONY: upload

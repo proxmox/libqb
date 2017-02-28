@@ -13,7 +13,7 @@
 export DEB_BUILD_HARDENING=1
 
 %:
-	dh $@ 
+	dh --with autoreconf $@ 
 
 override_dh_strip:
 	dh_strip --dbg-package=libqb0-dbg
