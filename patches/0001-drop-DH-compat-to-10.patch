@@ -1,0 +1,31 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Fabian=20Gr=C3=BCnbichler?= <f.gruenbichler@proxmox.com>
+Date: Wed, 7 Nov 2018 12:22:39 +0100
+Subject: [PATCH] drop DH compat to 10
+
+for easier backporting
+---
+ debian/compat  | 2 +-
+ debian/control | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/debian/compat b/debian/compat
+index b4de394..f599e28 100644
+--- a/debian/compat
++++ b/debian/compat
+@@ -1 +1 @@
+-11
++10
+diff --git a/debian/control b/debian/control
+index 50c1826..06566f0 100644
+--- a/debian/control
++++ b/debian/control
+@@ -6,7 +6,7 @@ Uploaders:
+            Adrian Vondendriesch <adrian.vondendriesch@credativ.de>
+ Build-Depends:
+                check,
+-               debhelper (>= 11~),
++               debhelper (>= 10~),
+                doxygen,
+                libglib2.0-dev,
+                pkg-config

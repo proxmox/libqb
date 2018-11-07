@@ -1,32 +1,50 @@
 RELEASE=5.0
 
-QBVERSION=1.0.1
-QBRELEASE=2
-QBDIR=libqb-${QBVERSION}
-QBSRC=libqb-${QBVERSION}.orig.tar.gz
+VERSION=1.0.3
+DEBRELEASE=1
+PVERELEASE=1~bpo9
+
+BUILDDIR=libqb-${VERSION}
+SRCARCHIVE=libqb_${VERSION}.orig.tar.xz
+DEBARCHIVE=libqb_${VERSION}-${DEBRELEASE}.debian.tar.xz
 
 ARCH:=$(shell dpkg-architecture -qDEB_BUILD_ARCH)
 
-DEBS=									\
-	libqb0_${QBVERSION}-${QBRELEASE}_${ARCH}.deb			\
-	libqb0-dbg_${QBVERSION}-${QBRELEASE}_${ARCH}.deb		\
-	libqb-dev_${QBVERSION}-${QBRELEASE}_${ARCH}.deb
+MAIN_DEB=libqb0_${VERSION}-${PVERELEASE}_${ARCH}.deb
+OTHER_DEBS=								\
+	libqb-doc_${VERSION}-${PVERELEASE}_all.deb			\
+	libqb0-dbgsym_${VERSION}-${PVERELEASE}_${ARCH}.deb		\
+	libqb-dev_${VERSION}-${PVERELEASE}_${ARCH}.deb			\
+	libqb-dev-dbgsym_${VERSION}-${PVERELEASE}_${ARCH}.deb		\
+
+DEBS=${MAIN_DEB} ${OTHER_DEBS}
+DSC=libqb-${VERSION}-${PVERELEASE}.dsc
 
 all: ${DEBS}
 	echo ${DEBS}
 
-${DEBS}: ${QBSRC}
-	rm -rf ${QBDIR}
-	tar xf ${QBSRC} 
-	cp -a debian ${QBDIR}/debian
-	cd ${QBDIR}; dpkg-buildpackage -b -us -uc
+${BUILDDIR}: upstream/${SRCARCHIVE} upstream/${DEBARCHIVE} patches/*
+	rm -rf ${BUILDDIR}
+	ln -sf upstream/${SRCARCHIVE} ${SRCARCHIVE}
+	tar -xf upstream/${SRCARCHIVE}
+	tar -C ${BUILDDIR} -xf upstream/${DEBARCHIVE}
+	cd ${BUILDDIR}; ln -s ../patches patches
+	cd ${BUILDDIR}; quilt push -a
+	cd ${BUILDDIR}; rm -rf .pc ./patches
 
+deb: ${DEBS}
+${OTHER_DEBS}: ${MAIN_DEB}
+${MAIN_DEB}: ${BUILDDIR}
+	cd ${BUILDDIR}; dpkg-buildpackage -b -us -uc
+
+dsc: ${DSC}
+${DSC}: ${BUILDDIR}
+	cd ${BUILDDIR}; dpkg-buildpackage -S -us -uc -d -nc
 
 download:
-	rm -rf libqb-${QBVERSION} libqb-${QBVERSION}.orig.tar.gz
-	git clone git://github.com/ClusterLabs/libqb.git libqb-${QBVERSION}
-	cd libqb-${QBVERSION}; git checkout v${QBVERSION}
-	tar czf libqb-${QBVERSION}.orig.tar.gz libqb-${QBVERSION}/
+	rm -rf upstream/${SRCARCHIVE} upstream/${DEBARCHIVE} ${BUILDDIR}
+	cd upstream; dget https://deb.debian.org/debian/pool/main/libq/libqb/libqb_${VERSION}-${DEBRELEASE}.dsc
+	cd upstream; rm -rf *.asc *.dsc ${BUILDDIR}
 
 .PHONY: upload
 upload: ${DEBS}
@@ -34,7 +52,7 @@ upload: ${DEBS}
 
 .PHONY: clean
 clean:
-	rm -rf *~ debian/*~ *_${ARCH}.deb *.changes *.dsc ${QBDIR} libqb_${QBVERSION}.orig.tar.gz
+	rm -rf *~ debian/*~ *_${ARCH}.deb *.changes *.dsc ${BUILDDIR} *.orig.tar.xz *.debian.tar.xz *.buildinfo
 
 .PHONY: dinstall
 dinstall: ${DEBS}
