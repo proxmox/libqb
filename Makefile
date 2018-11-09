@@ -42,7 +42,8 @@ ${DSC}: ${BUILDDIR}
 	cd ${BUILDDIR}; dpkg-buildpackage -S -us -uc -d -nc
 
 download:
-	rm -rf upstream/${SRCARCHIVE} upstream/${DEBARCHIVE} ${BUILDDIR}
+	rm -rf upstream/
+	mkdir upstream
 	cd upstream; dget https://deb.debian.org/debian/pool/main/libq/libqb/libqb_${VERSION}-${DEBRELEASE}.dsc
 	cd upstream; rm -rf *.asc *.dsc ${BUILDDIR}
 
