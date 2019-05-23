@@ -53,7 +53,7 @@ upload: ${DEBS}
 
 .PHONY: clean
 clean:
-	rm -rf *~ debian/*~ *_${ARCH}.deb *.changes *.dsc ${BUILDDIR} *.orig.tar.xz *.debian.tar.xz *.buildinfo
+	rm -rf *~ debian/*~ *.deb *.changes *.dsc ${BUILDDIR} *.orig.tar.xz *.debian.tar.xz *.buildinfo
 
 .PHONY: dinstall
 dinstall: ${DEBS}
