@@ -1,0 +1,58 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Thomas Lamprecht <t.lamprecht@proxmox.com>
+Date: Mon, 24 Jun 2019 12:59:19 +0200
+Subject: [PATCH] PVE: d/postinst: restart pmxcfs and trigger pve-api-updates
+
+as this is a bit of an incompatible library upgrade, which normally
+should not happen during a stable release lifecycle. But we upgrade
+to this in Proxmox VE 5 based on Debian Stretch when upgrading the
+system to corosync 3 for preparation to the PVVE 6 based on Debian
+Buster upgrade. As the shared memory access changed between libqb
+1.0.3 and 1.0.5 due to security reasons, and corosync get restarted
+and thus loads in the new libqb, we also need to restart pmxcfs to
+load in the new library there too. This results in a issue with all
+those using IPCC to communicate with pmxcfs, so trigger a
+pve-api-updates trigger to query a restart of those daemons to.
+
+Signed-off-by: Thomas Lamprecht <t.lamprecht@proxmox.com>
+---
+ debian/libqb0.postinst | 21 +++++++++++++++++++++
+ debian/triggers        |  1 +
+ 2 files changed, 22 insertions(+)
+ create mode 100644 debian/libqb0.postinst
+ create mode 100644 debian/triggers
+
+diff --git a/debian/libqb0.postinst b/debian/libqb0.postinst
+new file mode 100644
+index 0000000..303ee57
+--- /dev/null
++++ b/debian/libqb0.postinst
+@@ -0,0 +1,21 @@
++#!/bin/sh
++
++set -e
++
++#DEBHELPER#
++
++case "$1" in
++  configure)
++    if test -n "$2"; then
++        # NOTE: only for the stretch upgrade for corosync 3
++        if dpkg --compare-versions "$2" 'lt' '1.0.5-1~bpo9+2'; then
++            if systemctl -q is-enabled "pve-cluster.service"; then
++                deb-systemd-invoke "reload-or-try-restart" "pve-cluster.service"
++            fi
++       fi
++    fi
++    ;;
++
++esac
++
++exit 0
+diff --git a/debian/libqb0.triggers b/debian/libqb0.triggers
+new file mode 100644
+index 0000000..59dd688
+--- /dev/null
++++ b/debian/libqb0.triggers
+@@ -0,0 +1 @@
++activate-noawait pve-api-updates

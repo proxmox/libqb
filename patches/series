@@ -1,2 +1,3 @@
 0001-drop-DH-compat-to-10.patch
 0002-adapt-changelog.patch
+0003-PVE-d-postinst-restart-pmxcfs-and-trigger-pve-api-up.patch
